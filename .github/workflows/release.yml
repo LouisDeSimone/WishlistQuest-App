@@ -1,0 +1,79 @@
+name: Release Desktop App
+
+# This workflow lives in the PUBLIC downloads repo (WishlistQuest-App).
+# It pulls the PRIVATE source (WishlistQuest) at a chosen tag, builds + signs
+# the desktop app, and publishes the installer + latest.json as a Release here.
+#
+# Members only ever see this public repo. No source code is stored here.
+#
+# Trigger it by hand: Actions tab -> "Release Desktop App" -> Run workflow ->
+# type the version tag (e.g. v0.2.0) that you already pushed in the private repo.
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Version tag to build (must already exist in the private source repo, e.g. v0.2.0)'
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      # The public repo itself is the checkout at the workspace root. The Release
+      # that tauri-action creates lands here (so latest.json points at this repo).
+      - name: Check out this (public) repo
+        uses: actions/checkout@v4
+
+      # Pull the private source at the requested tag into ./source.
+      # PRIVATE_REPO_TOKEN = a fine-grained PAT with Contents: Read on WishlistQuest.
+      - name: Check out private source at the tag
+        uses: actions/checkout@v4
+        with:
+          repository: LouisDeSimone/WishlistQuest
+          ref: ${{ github.event.inputs.tag }}
+          token: ${{ secrets.PRIVATE_REPO_TOKEN }}
+          path: source
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: source/package-lock.json
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache Rust build
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: source/src-tauri
+
+      - name: Install dependencies
+        working-directory: source
+        run: npm ci
+
+      # Builds the frontend (beforeBuildCommand), builds + signs the app, creates
+      # the Release in THIS public repo, and uploads the installer + latest.json.
+      - name: Build, sign, and publish release
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+        with:
+          projectPath: source
+          tagName: ${{ github.event.inputs.tag }}
+          releaseName: 'Wishlist Quest ${{ github.event.inputs.tag }}'
+          releaseBody: |
+            **Download the `*-setup.exe` below and run it to install.**
+
+            Already have Wishlist Quest? You don't need this — the app updates
+            itself automatically the next time you open it.
+          releaseDraft: false
+          prerelease: false
+          includeUpdaterJson: true
