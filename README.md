@@ -1,40 +1,30 @@
-# Wishlist Quest
+# Launch Companion
 
-Track your Steam wishlist growth like an RPG campaign. **Windows 10/11.**
+A Windows app that tracks your Steam wishlists and sales. For AI Game Dev Lab members. **Windows 10/11.**
 
 ## ⬇️ Download
 
-**[Click here to download the latest version](../../releases/latest)** — then
-grab the file ending in **`-setup.exe`** under *Assets*.
+**[Download the latest version](https://github.com/LouisDeSimone/WishlistQuest-App/releases/latest)**, then grab the file ending in `-setup.exe` under *Assets*.
 
-## Install (2 minutes)
+**You need a license key to use the app.** Members get one by DM in Skool. Full setup steps are in the Classroom: **Module 6: Steam Strategy & Timeline → Launch Companion**.
+
+## Install
 
 1. Double-click the `-setup.exe` you downloaded.
-2. If Windows shows a blue **"Windows protected your PC"** box, click
-   **More info → Run anyway**. That's normal for a new indie app — it's not a
-   virus warning.
-3. Click through and **Install** (installs just for you — no admin password).
-4. Open **Wishlist Quest** from your Start Menu and start your campaign!
-
-A thin **March Bar** appears at the bottom of your screen — that's your campaign
-companion. Click **Open App** on it for the full dashboard.
-
-📖 **Stuck or want more detail?** See the full
-**[install guide](INSTALL-FOR-MEMBERS.md)** (covers the SmartScreen prompt,
-connecting Steam, and backups).
+2. If Windows shows a blue **"Windows protected your PC"** box, click **More info**, then **Run anyway**. The app isn't code-signed yet. It's not a virus warning.
+3. Click through the installer. It installs just for you, so you don't need an admin password.
+4. Open **Launch Companion** from your Start Menu and paste your license key.
 
 ## Updates
 
-The app updates itself. When a new version ships, you'll see a
-**"Reinforcements have arrived"** banner the next time you open it — click
-**Install & Restart** and you're done. Your data is kept.
+The app updates itself. When a new version is ready, you'll see **"A new build is ready"** in the app. Click **Install & Restart** and your data is kept.
 
 ## Your data is private
 
-Everything stays on your own PC. If you connect a Steam partner key for
-automatic numbers, that key is stored in Windows Credential Manager on your
-machine and **never leaves your computer**.
+Everything stays on your own PC. Your Steam Financial API key is stored in Windows Credential Manager. It's never sent to anyone and is never included in backups.
 
----
+## Terms of use
 
-*This repo only hosts the app downloads. Questions? Ask in the Skool group.*
+Launch Companion is included with AI Game Dev Lab membership and is for members' personal use on their own games. Please don't share the app, the download link, or your license key outside the group, sell it or bundle it with something you sell, or upload or host it anywhere else.
+
+© Tenth Legion Games. All rights reserved. Provided as-is.
