@@ -67,7 +67,7 @@ jobs:
         with:
           projectPath: source
           tagName: ${{ github.event.inputs.tag }}
-          releaseName: 'Wishlist Quest ${{ github.event.inputs.tag }}'
+          releaseName: 'Launch Companion ${{ github.event.inputs.tag }}'
           releaseBody: |
             **Download the `*-setup.exe` below and run it to install.**
 
