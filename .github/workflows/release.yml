@@ -71,7 +71,7 @@ jobs:
           releaseBody: |
             **Download the `*-setup.exe` below and run it to install.**
 
-            Already have Wishlist Quest? You don't need this — the app updates
+            Already have Launch Companion? You don't need this — the app updates
             itself automatically the next time you open it.
           releaseDraft: false
           prerelease: false
